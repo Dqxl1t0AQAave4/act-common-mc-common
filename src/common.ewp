@@ -1960,6 +1960,9 @@
   <group>
     <name>include</name>
     <file>
+      <name>$PROJ_DIR$\include\act-common\array.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\include\act-common\common.h</name>
     </file>
     <file>
