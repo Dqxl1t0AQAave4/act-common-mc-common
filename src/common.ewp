@@ -1969,6 +1969,9 @@
       <name>$PROJ_DIR$\include\act-common\iobuf.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\include\act-common\lock_guard.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\include\act-common\pwm.h</name>
     </file>
     <file>
