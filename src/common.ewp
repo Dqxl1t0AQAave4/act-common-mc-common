@@ -1972,6 +1972,9 @@
   <group>
     <name>test</name>
   </group>
+  <file>
+    <name>$PROJ_DIR$\main.cpp</name>
+  </file>
 </project>
 
 
