@@ -133,19 +133,23 @@
         <option>
           <name>GRuntimeLibSelect</name>
           <version>0</version>
-          <state>4</state>
+          <state>1</state>
         </option>
         <option>
           <name>RTDescription</name>
-          <state>Use the legacy C runtime library.</state>
+          <state>Use the normal configuration of the C/EC++</state>
+          <state>runtime library. No locale interface,</state>
+          <state>C locale, no file descriptor support,</state>
+          <state>no multibytes in printf and scanf, and</state>
+          <state>no hex floats in strtod.</state>
         </option>
         <option>
           <name>RTConfigPath</name>
-          <state></state>
+          <state>$TOOLKIT_DIR$\LIB\DLIB\dlAVR-1s-ec_mul-n.h</state>
         </option>
         <option>
           <name>RTLibraryPath</name>
-          <state>$TOOLKIT_DIR$\LIB\CLIB\cl1s-ec_mul.r90</state>
+          <state>$TOOLKIT_DIR$\LIB\DLIB\dlAVR-1s-ec_mul-n.r90</state>
         </option>
         <option>
           <name>Input variant</name>
@@ -154,7 +158,7 @@
         </option>
         <option>
           <name>Input description</name>
-          <state>Full formatting.</state>
+          <state> No specifier n, no float or long long.</state>
         </option>
         <option>
           <name>Output variant</name>
@@ -163,12 +167,12 @@
         </option>
         <option>
           <name>Output description</name>
-          <state>Full formatting.</state>
+          <state> No specifier a or A.</state>
         </option>
         <option>
           <name>GRuntimeLibSelectSlave</name>
           <version>0</version>
-          <state>4</state>
+          <state>1</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -416,7 +420,7 @@
         <option>
           <name>CCStdIncludePaths</name>
           <state>$TOOLKIT_DIR$\INC\</state>
-          <state>$TOOLKIT_DIR$\INC\CLIB\</state>
+          <state>$TOOLKIT_DIR$\INC\DLIB\</state>
         </option>
         <option>
           <name>CCEepromSize</name>
@@ -441,7 +445,7 @@
         </option>
         <option>
           <name>CCLangSelect</name>
-          <state>0</state>
+          <state>2</state>
         </option>
         <option>
           <name>CompilerMisraOverride</name>
