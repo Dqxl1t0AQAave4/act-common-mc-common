@@ -2,6 +2,7 @@
 
 #include <act-common/common.h>
 #include <act-common/array.h>
+#include <act-common/lock_guard.h>
 
 
 /* =========================== class ======================================= */
@@ -58,3 +59,42 @@ struct iobuf
 };
 
 
+
+/* =========================== user-side =================================== */
+
+
+/**
+ *  Locking policy.
+ */
+enum locking_policy
+{
+  
+    /* use existing one         */
+    lp_adopt_lock = true,
+    
+    /* perform locking manually */
+    lp_use_lock   = false
+
+};
+
+
+/**
+ *  Success policy.
+ */
+enum success_policy
+{
+  
+    /**
+     *  perform operation if and only if the buffer
+     *  has enough space to read / write an exact
+     *  specified amount of elements,
+     *  return either 0 or the requested amount of elements
+     */
+    sp_read_full = true,
+    
+    /**
+     *  perform operation anyway,
+     *  return a number of actually read / written elements
+     */
+    sp_read_any  = false
+};
