@@ -411,7 +411,7 @@
         </option>
         <option>
           <name>newCCIncludePaths</name>
-          <state></state>
+          <state>include</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1960,13 +1960,13 @@
   <group>
     <name>include</name>
     <file>
-      <name>$PROJ_DIR$\include\common.h</name>
+      <name>$PROJ_DIR$\include\act-common\common.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\include\pwm.h</name>
+      <name>$PROJ_DIR$\include\act-common\pwm.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\include\usart.h</name>
+      <name>$PROJ_DIR$\include\act-common\usart.h</name>
     </file>
   </group>
   <group>

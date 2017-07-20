@@ -4,7 +4,7 @@
 // Use TC2_PRESCALE to define prescaling you need (see 18.11.1 datasheet sec.)
 // Requires TC2_PRESCALE be defined
 
-#include "common.h"
+#include <act-common/common.h>
 
 inline __monitor void init_tc2_wg()
 {
