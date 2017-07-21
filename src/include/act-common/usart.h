@@ -3,7 +3,6 @@
 // Requires REG_USART_RXC_HANDLER and REG_USART_UDRE_HANDLER be defined
 // Requires IBUF_SIZE_T and OBUF_SIZE_T be defined
 // Requires IBUF_SIZE and OBUF_SIZE be defined
-// Requires BAUD_RATE, FOSC be defined
 
 #ifndef IBUF_SIZE_T
 #   define IBUF_SIZE_T byte
@@ -68,20 +67,4 @@ void usart_udre_interrupt_handler()
     {
         UDR = udr;
     }
-}
-
-
-/* Disable interrupts (see ATmega8A datasheet) */
-inline __monitor void usart_init()
-{
-    const int ubrr = FOSC/16/BAUD_RATE-1;
-    /* Set baud rate */
-    UBRRH = (unsigned char) (ubrr>>8);
-    UBRRL = (unsigned char) ubrr;
-    /* Enable receiver and transmitter */
-    UCSRB = (1<<RXEN)|(1<<TXEN);
-    /* Set frame format: 8data, 1stop bit, parity odd bit */
-    UCSRC = (1<<URSEL)|(3<<UCSZ0)|(3<<UPM0);
-     /* Enable RX Complete and Data Reg. Empty interrupt */
-    UCSRB |= (1<<RXCIE)|(1<<UDRIE);
 }
