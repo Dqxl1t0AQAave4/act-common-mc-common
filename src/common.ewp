@@ -1980,6 +1980,9 @@
   </group>
   <group>
     <name>test</name>
+    <file>
+      <name>$PROJ_DIR$\test\iobuf_test.h</name>
+    </file>
   </group>
   <file>
     <name>$PROJ_DIR$\main.cpp</name>
