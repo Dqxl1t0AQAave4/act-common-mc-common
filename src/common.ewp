@@ -1035,7 +1035,7 @@
         </option>
         <option>
           <name>LCEnableBitDefs</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>LCHeapSize</name>
