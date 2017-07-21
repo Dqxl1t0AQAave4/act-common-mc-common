@@ -1,8 +1,6 @@
 #pragma once
 
-#define ENABLE_BIT_DEFINITIONS
-
-#include <iom8a.h>
+#include <ioavr.h>
 #include <intrinsics.h>
 
 // INT_MIN is -32767 to be sure that INT_MIN + INT_MAX = 0
