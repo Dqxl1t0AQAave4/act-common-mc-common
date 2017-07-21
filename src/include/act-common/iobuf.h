@@ -92,13 +92,13 @@ enum success_policy
      *  specified amount of elements,
      *  return either 0 or the requested amount of elements
      */
-    sp_read_full = true,
+    sp_process_full = true,
     
     /**
      *  perform operation anyway,
      *  return a number of actually read / written elements
      */
-    sp_read_any  = false
+    sp_process_any  = false
 };
 
 
@@ -109,7 +109,7 @@ enum success_policy
  */
 template
 <
-    success_policy read_full,
+    success_policy process_full,
     locking_policy adopt_lock,
     typename capacity_type,
     capacity_type capacity,
@@ -133,16 +133,16 @@ inline capacity_type iobuf_read
     if (src_length == 0) return 0;
     
     /* the policy does not allow us to continue, just return */
-    if (read_full && (src_length < length)) return 0;
+    if (process_full && (src_length < length)) return 0;
     
     capacity_type src_pos    = src.position;
     
     /**
-     *  to_read = read_full ? length : min ( src_length, length )
+     *  to_read = process_full ? length : min ( src_length, length )
      */
     capacity_type to_read;
-    if   (read_full) to_read = length;
-    else             to_read = ((src_length < length) ? src_length : length);
+    if   (process_full) to_read = length;
+    else                to_read = ((src_length < length) ? src_length : length);
     
     capacity_type remaining = (capacity - src_pos);
     
@@ -212,7 +212,7 @@ inline capacity_type iobuf_read
 
 
 /**
- *  Same as iobuf_read < sp_read_any, lp_use_lock >
+ *  Same as iobuf_read < sp_process_any, lp_use_lock >
  */
 template
 <
@@ -227,7 +227,7 @@ inline capacity_type iobuf_read_any
     capacity_type  length
 )
 {
-    return iobuf_read < sp_read_any, lp_use_lock > (dst, src, length);
+    return iobuf_read < sp_process_any, lp_use_lock > (dst, src, length);
 }
 
 
@@ -326,7 +326,7 @@ inline capacity_type iobuf_read
  */
 template
 <
-    success_policy read_full,
+    success_policy process_full,
     locking_policy adopt_lock,
     typename capacity_type,
     capacity_type capacity,
@@ -361,12 +361,12 @@ inline capacity_type iobuf_write
     capacity_type to_write = (capacity - dst_length);
     
     /* the policy does not allow us to continue, just return */
-    if (read_full && (to_write < length)) return 0;
+    if (process_full && (to_write < length)) return 0;
     
     /**
-     *  to_write = read_full ? length : min ( free_space, length )
+     *  to_write = process_full ? length : min ( free_space, length )
      */
-    if (read_full || to_write > length) to_write = length;
+    if (process_full || to_write > length) to_write = length;
     
     capacity_type remaining = (capacity - dst_pos);
     
@@ -449,7 +449,7 @@ inline capacity_type iobuf_write
 
 
 /**
- *  Same as iobuf_write < sp_read_any, lp_use_lock >
+ *  Same as iobuf_write < sp_process_any, lp_use_lock >
  */
 template
 <
@@ -464,7 +464,7 @@ inline capacity_type iobuf_write_any
     capacity_type  length
 )
 {
-    return iobuf_write < sp_read_any, lp_use_lock > (dst, src, length);
+    return iobuf_write < sp_process_any, lp_use_lock > (dst, src, length);
 }
 
 

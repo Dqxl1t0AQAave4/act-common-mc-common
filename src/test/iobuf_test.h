@@ -23,7 +23,7 @@ inline void iobuf_read_test0(byte &i)
     src.length = 0;
     
     // should not do anything
-    r = iobuf_read<sp_read_any, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_read<sp_process_any, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 0);
     iobuf_test_results[i++] = (dst[0] == 0) && (dst[1] == 1) && (dst[2] == 2);
@@ -38,7 +38,7 @@ inline void iobuf_read_test0(byte &i)
     src.length = 3;
     
     // should read 2 bytes
-    r = iobuf_read<sp_read_any, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_read<sp_process_any, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 2);
     iobuf_test_results[i++] = (dst[0] == 3) && (dst[1] == 4) && (dst[2] == 2);
@@ -53,7 +53,7 @@ inline void iobuf_read_test0(byte &i)
     src.length = 1;
     
     // should read 1 byte
-    r = iobuf_read<sp_read_any, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_read<sp_process_any, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 1);
     iobuf_test_results[i++] = (dst[0] == 3) && (dst[1] == 1) && (dst[2] == 2);
@@ -68,7 +68,7 @@ inline void iobuf_read_test0(byte &i)
     src.length = 3;
     
     // should read 2 bytes
-    r = iobuf_read<sp_read_any, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_read<sp_process_any, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 2);
     iobuf_test_results[i++] = (dst[0] == 5) && (dst[1] == 3) && (dst[2] == 2);
@@ -83,7 +83,7 @@ inline void iobuf_read_test0(byte &i)
     src.length = 1;
     
     // should read 1 byte
-    r = iobuf_read<sp_read_any, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_read<sp_process_any, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 1);
     iobuf_test_results[i++] = (dst[0] == 5) && (dst[1] == 1) && (dst[2] == 2);
@@ -108,7 +108,7 @@ inline void iobuf_read_test1(byte &i)
     src.length = 0;
     
     // should not do anything
-    r = iobuf_read<sp_read_full, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_read<sp_process_full, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 0);
     iobuf_test_results[i++] = (dst[0] == 0) && (dst[1] == 1) && (dst[2] == 2);
@@ -123,7 +123,7 @@ inline void iobuf_read_test1(byte &i)
     src.length = 3;
     
     // should read 2 bytes
-    r = iobuf_read<sp_read_full, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_read<sp_process_full, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 2);
     iobuf_test_results[i++] = (dst[0] == 3) && (dst[1] == 4) && (dst[2] == 2);
@@ -138,7 +138,7 @@ inline void iobuf_read_test1(byte &i)
     src.length = 1;
     
     // should read 0 bytes => full restriction
-    r = iobuf_read<sp_read_full, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_read<sp_process_full, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 0);
     iobuf_test_results[i++] = (dst[0] == 0) && (dst[1] == 1) && (dst[2] == 2);
@@ -153,7 +153,7 @@ inline void iobuf_read_test1(byte &i)
     src.length = 3;
     
     // should read 2 bytes
-    r = iobuf_read<sp_read_full, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_read<sp_process_full, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 2);
     iobuf_test_results[i++] = (dst[0] == 5) && (dst[1] == 3) && (dst[2] == 2);
@@ -168,7 +168,7 @@ inline void iobuf_read_test1(byte &i)
     src.length = 1;
     
     // should read 0 bytes => full restriction
-    r = iobuf_read<sp_read_full, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_read<sp_process_full, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 0);
     iobuf_test_results[i++] = (dst[0] == 0) && (dst[1] == 1) && (dst[2] == 2);
@@ -183,7 +183,7 @@ inline void iobuf_read_test1(byte &i)
     src.length = 1;
     
     // should read 1 byte
-    r = iobuf_read<sp_read_full, lp_adopt_lock>(dst, src, (byte) 1);
+    r = iobuf_read<sp_process_full, lp_adopt_lock>(dst, src, (byte) 1);
     
     iobuf_test_results[i++] = (r == 1);
     iobuf_test_results[i++] = (dst[0] == 5) && (dst[1] == 1) && (dst[2] == 2);
@@ -264,7 +264,7 @@ inline void iobuf_write_test0(byte &i)
     dst.length = 3;
     
     // should not do anything
-    r = iobuf_write<sp_read_any, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_write<sp_process_any, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 0);
     iobuf_test_results[i++] = (dst[0] == 3) && (dst[1] == 4) && (dst[2] == 5);
@@ -279,7 +279,7 @@ inline void iobuf_write_test0(byte &i)
     dst.length = 0;
     
     // should write 2 bytes
-    r = iobuf_write<sp_read_any, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_write<sp_process_any, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 2);
     iobuf_test_results[i++] = (dst[0] == 0) && (dst[1] == 1) && (dst[2] == 5);
@@ -294,7 +294,7 @@ inline void iobuf_write_test0(byte &i)
     dst.length = 2;
     
     // should write 1 byte
-    r = iobuf_write<sp_read_any, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_write<sp_process_any, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 1);
     iobuf_test_results[i++] = (dst[0] == 3) && (dst[1] == 4) && (dst[2] == 0);
@@ -309,7 +309,7 @@ inline void iobuf_write_test0(byte &i)
     dst.length = 0;
     
     // should write 2 bytes
-    r = iobuf_write<sp_read_any, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_write<sp_process_any, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 2);
     iobuf_test_results[i++] = (dst[0] == 1) && (dst[1] == 4) && (dst[2] == 0);
@@ -324,7 +324,7 @@ inline void iobuf_write_test0(byte &i)
     dst.length = 2;
     
     // should write 1 byte
-    r = iobuf_write<sp_read_any, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_write<sp_process_any, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 1);
     iobuf_test_results[i++] = (dst[0] == 3) && (dst[1] == 0) && (dst[2] == 5);
@@ -349,7 +349,7 @@ inline void iobuf_write_test1(byte &i)
     dst.length = 3;
     
     // should not do anything
-    r = iobuf_write<sp_read_full, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_write<sp_process_full, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 0);
     iobuf_test_results[i++] = (dst[0] == 3) && (dst[1] == 4) && (dst[2] == 5);
@@ -364,7 +364,7 @@ inline void iobuf_write_test1(byte &i)
     dst.length = 0;
     
     // should write 2 bytes
-    r = iobuf_write<sp_read_full, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_write<sp_process_full, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 2);
     iobuf_test_results[i++] = (dst[0] == 0) && (dst[1] == 1) && (dst[2] == 5);
@@ -379,7 +379,7 @@ inline void iobuf_write_test1(byte &i)
     dst.length = 2;
     
     // should write 0 bytes => full restriction
-    r = iobuf_write<sp_read_full, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_write<sp_process_full, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 0);
     iobuf_test_results[i++] = (dst[0] == 3) && (dst[1] == 4) && (dst[2] == 5);
@@ -394,7 +394,7 @@ inline void iobuf_write_test1(byte &i)
     dst.length = 0;
     
     // should write 2 bytes
-    r = iobuf_write<sp_read_full, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_write<sp_process_full, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 2);
     iobuf_test_results[i++] = (dst[0] == 1) && (dst[1] == 4) && (dst[2] == 0);
@@ -409,7 +409,7 @@ inline void iobuf_write_test1(byte &i)
     dst.length = 2;
     
     // should write 0 bytes => full restriction
-    r = iobuf_write<sp_read_full, lp_adopt_lock>(dst, src, (byte) 2);
+    r = iobuf_write<sp_process_full, lp_adopt_lock>(dst, src, (byte) 2);
     
     iobuf_test_results[i++] = (r == 0);
     iobuf_test_results[i++] = (dst[0] == 3) && (dst[1] == 4) && (dst[2] == 5);
@@ -424,7 +424,7 @@ inline void iobuf_write_test1(byte &i)
     dst.length = 2;
     
     // should write 1 byte
-    r = iobuf_write<sp_read_full, lp_adopt_lock>(dst, src, (byte) 1);
+    r = iobuf_write<sp_process_full, lp_adopt_lock>(dst, src, (byte) 1);
     
     iobuf_test_results[i++] = (r == 1);
     iobuf_test_results[i++] = (dst[0] == 3) && (dst[1] == 0) && (dst[2] == 5);
