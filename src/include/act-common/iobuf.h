@@ -258,13 +258,15 @@ inline capacity_type iobuf_read
     /* nothing to read, just return */
     if (src_length == 0) return 0;
     
-    capacity_type new_pos    = src.position + 1;
+    capacity_type new_pos    = src.position;
     
     /**
      *  to_read = 1
      */
     
-    dst = *src;
+    dst = *(src + new_pos);
+    
+    ++new_pos;
     
     if (new_pos != capacity)
     {
