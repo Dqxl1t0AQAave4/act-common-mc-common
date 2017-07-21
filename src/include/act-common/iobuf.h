@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cstring>
+#include <cstring> /* for `memcpy` */
 
 #include <act-common/common.h>
 #include <act-common/array.h>
@@ -233,7 +233,7 @@ inline capacity_type iobuf_read_any
 
 
 /**
- *  Same as iobuf_read < > (*dst, src, 1), but optimized a bit.
+ *  Same as iobuf_read < > (&dst, src, 1), but optimized a bit.
  */
 template
 <
