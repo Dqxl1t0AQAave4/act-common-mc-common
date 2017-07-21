@@ -1,7 +1,11 @@
+#define DLIB
 
+#include <act-common/common.h>
 
-int main()
+#include "test/iobuf_test.h"
+
+void main()
 {
-    return 0;
+    iobuf_test();
 }
 
