@@ -6,8 +6,7 @@
 typedef iobuf<byte, 3u, byte> buf_t;
 
 
-const char * iobuf_test_messages [64];
-      bool   iobuf_test_results  [64];
+bool iobuf_test_results[64];
 
 
 inline void iobuf_read_test0(byte &i)
