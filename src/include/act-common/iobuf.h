@@ -146,7 +146,7 @@ inline capacity_type iobuf_read
     
     capacity_type remaining = (capacity - src_pos);
     
-    if (remaining >= to_read)
+    if (remaining > to_read)
     {
         /**
          *  pointers   0   r         |   w   c
@@ -156,7 +156,7 @@ inline capacity_type iobuf_read
          *  src_length     |< - - - - - >|
          *  remaining      |< - - - - - - - >|
          */
-        memcpy(dst, src, to_read);
+        memcpy(dst, src + src_pos, to_read);
     
         
         /**
@@ -187,10 +187,11 @@ inline capacity_type iobuf_read
          *  remaining                |< - - >|
          */
         
+        memcpy(dst, src + src_pos, remaining);
+        
         src_pos = to_read - remaining;
         
-        memcpy(dst, src, remaining);
-        memcpy(dst + remaining, src + remaining, src_pos);
+        memcpy(dst + remaining, src, src_pos);
         
         if (static_cast<bool>(adopt_lock))
         {
