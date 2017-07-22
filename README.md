@@ -1,5 +1,7 @@
 # `act-common` - `/mc/common`
 
+Является частью проекта [`act-common`](https://github.com/Dqxl1t0AQAave4/act-common).
+
 Проект содержит:
 
 - `/include` - общие включаемые файлы
