@@ -4,13 +4,15 @@
 
 template
 <
-    typename capacity_type,
-    capacity_type capacity,
-    typename storage_type
+    typename _capacity_type,
+    _capacity_type capacity,
+    typename _storage_type
 >
 struct array
 {
-    typedef storage_type type;
+
+    typedef _storage_type  storage_type;
+    typedef _capacity_type capacity_type;
     
     storage_type data[capacity];
     
@@ -24,12 +26,14 @@ struct array
 
 template
 <
-    typename capacity_type,
-    typename storage_type
+    typename _capacity_type,
+    typename _storage_type
 >
 struct size_aware_pointer
 {
-    typedef storage_type type;
+
+    typedef _storage_type  storage_type;
+    typedef _capacity_type capacity_type;
     
     storage_type  * data;
     capacity_type   capacity;
