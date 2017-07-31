@@ -3,7 +3,7 @@
 #include <act-common/iobuf.h>
 
 
-typedef iobuf<byte, 3u, byte> buf_t;
+typedef iobuf < array < byte, 3u, byte > > buf_t;
 
 
 bool iobuf_test_results[128];
