@@ -2,12 +2,16 @@
 
 // Requires REG_USART_RXC_HANDLER and REG_USART_UDRE_HANDLER be defined
 // Requires IBUF_CONTAINER_T and OBUF_CONTAINER_T be defined
+// Requires USART_LOCKING_POLICY be defined
 
 #ifndef IBUF_CONTAINER_T
 #   define IBUF_CONTAINER_T array < byte, 32, byte >
 #endif
 #ifndef OBUF_CONTAINER_T
 #   define OBUF_CONTAINER_T array < byte, 32, byte >
+#endif
+#ifndef USART_LOCKING_POLICY
+#   define USART_LOCKING_POLICY lp_adopt_lock
 #endif
 
 #include <act-common/common.h>
@@ -34,7 +38,7 @@ void usart_rxc_interrupt_handler()
        in order to suppress unnecessary interrupts */
     byte udr = UDR;
     
-    iobuf_write < lp_adopt_lock > (usart_ibuf, udr);
+    iobuf_write < USART_LOCKING_POLICY > (usart_ibuf, udr);
 }
 
 
@@ -47,7 +51,7 @@ void usart_rxc_interrupt_handler()
 void usart_udre_interrupt_handler()
 {
     byte udr;
-    usart_obuf_t::capacity_type has_data = iobuf_read < lp_adopt_lock > (udr, usart_obuf);
+    usart_obuf_t::capacity_type has_data = iobuf_read < USART_LOCKING_POLICY > (udr, usart_obuf);
     
     if (has_data == OBUF_SIZE_T(0) /* false */)
     {
