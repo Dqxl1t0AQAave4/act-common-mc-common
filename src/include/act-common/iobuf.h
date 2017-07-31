@@ -47,15 +47,13 @@
  */
 template
 <
-    typename capacity_type,
-    capacity_type capacity,
-    typename storage_type
+    typename T
 >
 struct iobuf
-    : public array < capacity_type, capacity, storage_type >
+    : public T
 {
-    volatile capacity_type position;
-    volatile capacity_type length;
+    volatile typename T::capacity_type position;
+    volatile typename T::capacity_type length;
     
     iobuf() : position(0), length(0) { }
 };
