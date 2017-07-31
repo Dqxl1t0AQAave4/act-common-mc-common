@@ -111,15 +111,13 @@ template
 <
     success_policy process_full,
     locking_policy adopt_lock,
-    typename capacity_type,
-    capacity_type capacity,
-    typename storage_type
+    typename T
 >
-inline capacity_type iobuf_read
+inline typename T::capacity_type iobuf_read
 (
-    storage_type * dst,
-    iobuf < capacity_type, capacity, storage_type > & src,
-    capacity_type  length
+    typename T::storage_type * dst,
+    T & src,
+    typename T::capacity_type  length
 )
 {
     /**
@@ -127,7 +125,7 @@ inline capacity_type iobuf_read
      *             - cannot be decreased in any parallel context
      *  so it is safe to just read it without locking the context
      */
-    capacity_type src_length = src.length;
+    typename T::capacity_type src_length = src.length;
     
     /* nothing to read, just return */
     if (src_length == 0) return 0;
@@ -135,16 +133,16 @@ inline capacity_type iobuf_read
     /* the policy does not allow us to continue, just return */
     if (process_full && (src_length < length)) return 0;
     
-    capacity_type src_pos    = src.position;
+    typename T::capacity_type src_pos    = src.position;
     
     /**
      *  to_read = process_full ? length : min ( src_length, length )
      */
-    capacity_type to_read;
+    typename T::capacity_type to_read;
     if   (process_full) to_read = length;
     else                to_read = ((src_length < length) ? src_length : length);
     
-    capacity_type remaining = (capacity - src_pos);
+    typename T::capacity_type remaining = (array_size(src) - src_pos);
     
     if (remaining > to_read)
     {
@@ -216,15 +214,13 @@ inline capacity_type iobuf_read
  */
 template
 <
-    typename capacity_type,
-    capacity_type capacity,
-    typename storage_type
+    typename T
 >
-inline capacity_type iobuf_read_any
+inline typename T::capacity_type iobuf_read_any
 (
-    storage_type * dst,
-    iobuf < capacity_type, capacity, storage_type > & src,
-    capacity_type  length
+    typename T::storage_type * dst,
+    T & src,
+    typename T::capacity_type  length
 )
 {
     return iobuf_read < sp_process_any, lp_use_lock > (dst, src, length);
@@ -238,14 +234,12 @@ inline capacity_type iobuf_read_any
 template
 <
     locking_policy adopt_lock,
-    typename capacity_type,
-    capacity_type capacity,
-    typename storage_type
+    typename T
 >
-inline capacity_type iobuf_read
+inline typename T::capacity_type iobuf_read
 (
-    storage_type & dst,
-    iobuf < capacity_type, capacity, storage_type > & src
+    typename T::storage_type & dst,
+    T & src
 )
 {
     /**
@@ -253,12 +247,12 @@ inline capacity_type iobuf_read
      *             - cannot be decreased in any parallel context
      *  so it is safe to just read it without locking the context
      */
-    capacity_type src_length = src.length;
+    typename T::capacity_type src_length = src.length;
     
     /* nothing to read, just return */
     if (src_length == 0) return 0;
     
-    capacity_type new_pos    = src.position;
+    typename T::capacity_type new_pos    = src.position;
     
     /**
      *  to_read = 1
@@ -268,7 +262,7 @@ inline capacity_type iobuf_read
     
     ++new_pos;
     
-    if (new_pos != capacity)
+    if (new_pos != array_size(src))
     {
         /**
          *  pointers   0   r |           w   c
@@ -328,19 +322,17 @@ template
 <
     success_policy process_full,
     locking_policy adopt_lock,
-    typename capacity_type,
-    capacity_type capacity,
-    typename storage_type
+    typename T
 >
-inline capacity_type iobuf_write
+inline typename T::capacity_type iobuf_write
 (
-    iobuf < capacity_type, capacity, storage_type > & dst,
-    storage_type * src,
-    capacity_type  length
+    T & dst,
+    typename T::storage_type * src,
+    typename T::capacity_type  length
 )
 {
-    capacity_type dst_length;
-    capacity_type dst_pos; /* initially -- just position */
+    typename T::capacity_type dst_length;
+    typename T::capacity_type dst_pos; /* initially -- just position */
     
     if (static_cast<bool>(adopt_lock))
     {
@@ -355,10 +347,10 @@ inline capacity_type iobuf_write
     }
     
     /* nothing to write, just return */
-    if (dst_length == capacity) return 0;
+    if (dst_length == array_size(dst)) return 0;
     
     /* initially -- just free_space */
-    capacity_type to_write = (capacity - dst_length);
+    typename T::capacity_type to_write = (array_size(dst) - dst_length);
     
     /* the policy does not allow us to continue, just return */
     if (process_full && (to_write < length)) return 0;
@@ -368,7 +360,7 @@ inline capacity_type iobuf_write
      */
     if (process_full || to_write > length) to_write = length;
     
-    capacity_type remaining = (capacity - dst_pos);
+    typename T::capacity_type remaining = (array_size(dst) - dst_pos);
     
     /**
      *  dst_pos = (position + length) mod capacity
@@ -396,7 +388,7 @@ inline capacity_type iobuf_write
         dst_pos = (dst_pos + dst_length);
     }
     
-    remaining = (capacity - dst_pos);
+    remaining = (array_size(dst) - dst_pos);
     
     if (remaining > to_write)
     {
@@ -453,15 +445,13 @@ inline capacity_type iobuf_write
  */
 template
 <
-    typename capacity_type,
-    capacity_type capacity,
-    typename storage_type
+    typename T
 >
-inline capacity_type iobuf_write_any
+inline typename T::capacity_type iobuf_write_any
 (
-    iobuf < capacity_type, capacity, storage_type > & dst,
-    storage_type * src,
-    capacity_type  length
+    T & dst,
+    typename T::storage_type * src,
+    typename T::capacity_type  length
 )
 {
     return iobuf_write < sp_process_any, lp_use_lock > (dst, src, length);
@@ -475,18 +465,16 @@ inline capacity_type iobuf_write_any
 template
 <
     locking_policy adopt_lock,
-    typename capacity_type,
-    capacity_type capacity,
-    typename storage_type
+    typename T
 >
-inline capacity_type iobuf_write
+inline typename T::capacity_type iobuf_write
 (
-    iobuf < capacity_type, capacity, storage_type > & dst,
-    storage_type & src
+    T & dst,
+    typename T::storage_type & src
 )
 {
-    capacity_type dst_length;
-    capacity_type dst_pos; /* initially -- just position */
+    typename T::capacity_type dst_length;
+    typename T::capacity_type dst_pos; /* initially -- just position */
     
     if (static_cast<bool>(adopt_lock))
     {
@@ -501,13 +489,13 @@ inline capacity_type iobuf_write
     }
     
     /* nothing to write, just return */
-    if (dst_length == capacity) return 0;
+    if (dst_length == array_size(dst)) return 0;
     
     /**
      *  to_write = 1
      */
     
-    capacity_type remaining = (capacity - dst_pos);
+    typename T::capacity_type remaining = (array_size(dst) - dst_pos);
     
     /**
      *  dst_pos = (position + length) mod capacity
