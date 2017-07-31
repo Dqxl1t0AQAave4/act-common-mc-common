@@ -1,28 +1,21 @@
 #pragma once
 
 // Requires REG_USART_RXC_HANDLER and REG_USART_UDRE_HANDLER be defined
-// Requires IBUF_SIZE_T and OBUF_SIZE_T be defined
-// Requires IBUF_SIZE and OBUF_SIZE be defined
+// Requires IBUF_CONTAINER_T and OBUF_CONTAINER_T be defined
 
-#ifndef IBUF_SIZE_T
-#   define IBUF_SIZE_T byte
+#ifndef IBUF_CONTAINER_T
+#   define IBUF_CONTAINER_T array < byte, 32, byte >
 #endif
-#ifndef OBUF_SIZE_T
-#   define OBUF_SIZE_T byte
-#endif
-#ifndef IBUF_SIZE
-#   define IBUF_SIZE IBUF_SIZE_T(32)
-#endif
-#ifndef OBUF_SIZE
-#   define OBUF_SIZE IBUF_SIZE_T(32)
+#ifndef OBUF_CONTAINER_T
+#   define OBUF_CONTAINER_T array < byte, 32, byte >
 #endif
 
 #include <act-common/common.h>
 #include <act-common/iobuf.h>
 
 
-typedef iobuf < IBUF_SIZE_T, IBUF_SIZE, byte > usart_ibuf_t;
-typedef iobuf < OBUF_SIZE_T, OBUF_SIZE, byte > usart_obuf_t;
+typedef iobuf < IBUF_CONTAINER_T > usart_ibuf_t;
+typedef iobuf < OBUF_CONTAINER_T > usart_obuf_t;
 
 
 usart_ibuf_t usart_ibuf;
@@ -39,7 +32,7 @@ void usart_rxc_interrupt_handler()
 {
     /* Must read the data anyway
        in order to suppress unnecessary interrupts */
-    IBUF_SIZE_T udr = UDR;
+    byte udr = UDR;
     
     iobuf_write < lp_adopt_lock > (usart_ibuf, udr);
 }
@@ -54,7 +47,7 @@ void usart_rxc_interrupt_handler()
 void usart_udre_interrupt_handler()
 {
     byte udr;
-    OBUF_SIZE_T has_data = iobuf_read < lp_adopt_lock > (udr, usart_obuf);
+    usart_obuf_t::capacity_type has_data = iobuf_read < lp_adopt_lock > (udr, usart_obuf);
     
     if (has_data == OBUF_SIZE_T(0) /* false */)
     {
