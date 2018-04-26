@@ -1,8 +1,9 @@
 #pragma once
 
-// Requires REG_USART_RXC_HANDLER and REG_USART_UDRE_HANDLER be defined
-// Requires IBUF_CONTAINER_T and OBUF_CONTAINER_T be defined
-// Requires USART_LOCKING_POLICY be defined
+// Non-internal defines used:
+//   REG_USART_RXC_HANDLER and REG_USART_UDRE_HANDLER
+//   IBUF_CONTAINER_T and OBUF_CONTAINER_T
+//   USART_LOCKING_POLICY
 
 #ifndef IBUF_CONTAINER_T
 #   define IBUF_CONTAINER_T array < byte, 32, byte >
