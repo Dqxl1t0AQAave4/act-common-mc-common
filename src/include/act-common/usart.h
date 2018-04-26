@@ -27,6 +27,18 @@ usart_ibuf_t usart_ibuf;
 usart_obuf_t usart_obuf;
 
 
+/**
+ *  "Touches" the USART interface in order to
+ *  take an initial action if it is required.
+ */
+void usart_touch()
+{
+    lock_guard < true > guard;
+
+    UCSRB |= (1 << UDRIE); /* Enable Data Reg. Empty interrupt */
+}
+
+
 #ifdef REG_USART_RXC_HANDLER
 #   pragma vector=USART_RXC_vect
     __interrupt
