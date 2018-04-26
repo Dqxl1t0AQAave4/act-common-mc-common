@@ -53,7 +53,7 @@ void usart_udre_interrupt_handler()
     byte udr;
     usart_obuf_t::capacity_type has_data = iobuf_read < USART_LOCKING_POLICY > (udr, usart_obuf);
     
-    if (has_data == OBUF_SIZE_T(0) /* false */)
+    if (has_data == usart_obuf_t::capacity_type(0) /* false */)
     {
         /* Must do this manually since UDRIE must
            be cleared if output buffer becomes empty
