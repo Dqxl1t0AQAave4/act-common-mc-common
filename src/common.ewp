@@ -1980,6 +1980,12 @@
       <name>$PROJ_DIR$\include\act-common\pwm.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\include\act-common\spi_2m.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\include\act-common\twi_2m.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\include\act-common\usart.h</name>
     </file>
   </group>
