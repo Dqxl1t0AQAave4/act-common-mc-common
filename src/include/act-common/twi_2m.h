@@ -49,7 +49,7 @@ enum twi_mode
 byte twi_current_mode = twi_mode_not_addressed;
 
 
-void _twi_touch()
+void _twi_notify()
 {
     /* Try to enter the master mode */
     if (twi_current_mode == twi_mode_not_addressed)
@@ -64,14 +64,14 @@ void _twi_touch()
 
 
 /**
- *  "Touches" the TWI interface in order to
+ *  Notify the TWI interface in order to
  *  take an initial action as a master if it
  *  is required.
  */
-void twi_touch()
+void twi_notify()
 {
     lock_guard < true > guard;
-    _twi_touch();
+    _twi_notify();
 }
 
 
@@ -207,5 +207,5 @@ void twi_slave_interrupt_handler()
     }
 
     /* Try to enter the master mode */
-    _twi_touch();
+    _twi_notify();
 }

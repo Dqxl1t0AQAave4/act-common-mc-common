@@ -28,10 +28,10 @@ usart_obuf_t usart_obuf;
 
 
 /**
- *  "Touches" the USART interface in order to
+ *  Notifies the USART interface in order to
  *  take an initial action if it is required.
  */
-void usart_touch()
+void usart_notify()
 {
     lock_guard < true > guard;
 

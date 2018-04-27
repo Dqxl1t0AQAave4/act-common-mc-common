@@ -30,10 +30,10 @@ spi_obuf_t spi_obuf;
 
 
 /**
- *  "Touches" the SPI interface in order to
+ *  Notifies the SPI interface in order to
  *  take an initial action if it is required.
  */
-void spi_touch()
+void spi_notify()
 {
     lock_guard < true > guard;
 
