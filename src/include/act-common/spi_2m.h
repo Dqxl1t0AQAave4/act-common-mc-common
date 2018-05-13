@@ -44,6 +44,18 @@ void spi_notify()
     {
         /* Become master */
         SPCR |= (1 << MSTR);
+        /* Init data transmission which is
+           to be continued in interrupt handler */
+        byte data, ost;
+        ost = iobuf_read < SPI_LOCKING_POLICY > (data, spi_obuf);
+        if (ost == spi_obuf_t::capacity_type(0))
+        {
+            SPCR &= ~(1 << MSTR);
+        }
+        else
+        {
+            SPDR = data;
+        }
     }
 }
 
