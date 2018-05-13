@@ -68,6 +68,10 @@ void spi_2m_interrupt_handler()
             /* Become slave */
             SPCR &= ~(1 << MSTR);
         }
+        else
+        {
+            SPDR = data;
+        }
     }
     else
     {
